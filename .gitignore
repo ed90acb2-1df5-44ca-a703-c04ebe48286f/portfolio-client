@@ -1,0 +1,8 @@
+*.DotSettings
+.DS_Store
+.idea
+Library
+Logs
+Temp
+UserSettings
+obj

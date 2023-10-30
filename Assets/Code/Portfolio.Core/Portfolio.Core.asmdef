@@ -1,0 +1,16 @@
+{
+    "name": "Portfolio.Core",
+    "rootNamespace": "Portfolio.Core",
+    "references": [
+        "GUID:e93f13c8391d84ec980be7a0912f7682"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
