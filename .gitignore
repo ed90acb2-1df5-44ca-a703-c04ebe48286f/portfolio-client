@@ -1,5 +1,4 @@
 *.DotSettings
-*.meta
 .DS_Store
 .idea
 Library
