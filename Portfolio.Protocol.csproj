@@ -41,20 +41,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll" />
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/Google.Protobuf.dll" />
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Errors.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Commands.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Opcodes.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Values.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Opcode.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Messages.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/BufferWriter.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Requests.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Errors.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Authentication.cs" />
      <Folder Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Proto" />
      <None Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/package.json" />
      <Folder Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated" />
@@ -69,14 +67,14 @@
      <Reference Include="Google.Protobuf">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/Google.Protobuf.dll</HintPath>
      </Reference>
+     <Reference Include="LiteNetLib">
+     <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll</HintPath>
+     </Reference>
      <Reference Include="System.Runtime.CompilerServices.Unsafe">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
      </Reference>
      <Reference Include="Mono.Cecil">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/PackageCache/com.unity.nuget.mono-cecil@1.11.4/Mono.Cecil.dll</HintPath>
-     </Reference>
-     <Reference Include="LiteNetLib">
-     <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/NetStandard/ref/2.1.0/netstandard.dll</HintPath>

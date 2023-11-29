@@ -1,4 +1,6 @@
 using Portfolio.Core.Net;
+using Portfolio.Core.UI;
+using Portfolio.Core.UI.Views;
 
 namespace Portfolio.Core.States
 {
@@ -6,15 +8,21 @@ namespace Portfolio.Core.States
     {
         private readonly Game _game;
         private readonly IClient _client;
+        private readonly IViewFactory _viewFactory;
 
-        public MainMenuState(Game game, IClient client)
+        private IAuthenticationView _authenticationView = null!;
+
+        public MainMenuState(Game game, IClient client, IViewFactory viewFactory)
         {
             _game = game;
             _client = client;
+            _viewFactory = viewFactory;
         }
 
         public void Enter()
         {
+            _authenticationView = _viewFactory.Create<IAuthenticationView>();
+            _authenticationView.Construct(_client);
         }
 
         public void Tick(float delta)
@@ -23,6 +31,7 @@ namespace Portfolio.Core.States
 
         public void Exit()
         {
+            _authenticationView.Deconstruct();
         }
     }
 }

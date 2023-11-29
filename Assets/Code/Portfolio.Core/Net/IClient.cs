@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 
 namespace Portfolio.Core.Net
@@ -10,6 +11,8 @@ namespace Portfolio.Core.Net
         void PollEvents();
 
         void Disconnect();
+
+        UniTask<TMessage> WaitFor<TMessage>() where TMessage : class;
 
         void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, IMessage, new();
 

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Portfolio.Core.UI.Views;
 using UnityEngine;
 
 namespace Portfolio.Unity.UI.Views
 {
-    public abstract class View<TContext> : MonoBehaviour
+    public abstract class View<TContext> : MonoBehaviour, IView<TContext>
     {
         protected readonly List<IDisposable> Lifetime = new();
 

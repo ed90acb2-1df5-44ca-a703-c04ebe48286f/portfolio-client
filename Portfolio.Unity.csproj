@@ -42,9 +42,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll" />
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/Google.Protobuf.dll" />
-    <Analyzer Include="/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
@@ -52,12 +49,19 @@
   <ItemGroup>
      <Compile Include="Assets/Code/Portfolio.Unity/UI/Views/View.cs" />
      <Compile Include="Assets/Code/Portfolio.Unity/Logger.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/UI/ViewFactory.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/UnityLegacyInput.cs" />
      <Compile Include="Assets/Code/Portfolio.Unity/Startup.cs" />
      <Compile Include="Assets/Code/Portfolio.Unity/Reactive/UnityObservable.cs" />
-     <Compile Include="Assets/Code/Portfolio.Unity/Reactive/ObservableInputField.cs" />
      <Compile Include="Assets/Code/Portfolio.Unity/UI/Views/AuthenticationView.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/Actors/UnityActorFactory.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/Actors/UnityActor.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/CameraSystem.cs" />
+     <Compile Include="Assets/Code/Portfolio.Unity/Reactive/ObservableInputField.cs" />
      <None Include="Assets/Code/Portfolio.Unity/Portfolio.Unity.asmdef" />
+     <Folder Include="Assets/Code/Portfolio.Unity/Systems" />
      <Folder Include="Assets/Code/Portfolio.Unity/Reactive" />
+     <Folder Include="Assets/Code/Portfolio.Unity/Actors" />
      <Folder Include="Assets/Code/Portfolio.Unity/UI/Elements" />
      <None Include="Assets/Code/Portfolio.Unity/csc.rsp" />
      <Folder Include="Assets/Code/Portfolio.Unity/UI" />
@@ -399,6 +403,9 @@
      <Reference Include="UnityEditor.OSXStandalone.Extensions">
      <HintPath>/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+     <HintPath>/Applications/Unity/Hub/Editor/2023.2.0b15/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Collections.LowLevel.ILSupport">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/PackageCache/com.unity.collections@1.4.0/Unity.Collections.LowLevel.ILSupport/Unity.Collections.LowLevel.ILSupport.dll</HintPath>
      </Reference>
@@ -408,14 +415,14 @@
      <Reference Include="Google.Protobuf">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/Google.Protobuf.dll</HintPath>
      </Reference>
+     <Reference Include="LiteNetLib">
+     <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll</HintPath>
+     </Reference>
      <Reference Include="System.Runtime.CompilerServices.Unsafe">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
      </Reference>
      <Reference Include="Mono.Cecil">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/PackageCache/com.unity.nuget.mono-cecil@1.11.4/Mono.Cecil.dll</HintPath>
-     </Reference>
-     <Reference Include="LiteNetLib">
-     <HintPath>/Users/qd/Projects/Portfolio.Unity/Assets/Plugins/LiteNetLib.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/NetStandard/ref/2.1.0/netstandard.dll</HintPath>
@@ -786,6 +793,9 @@
      <Reference Include="Unity.TextMeshPro">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
      </Reference>
+     <Reference Include="UniTask">
+     <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/ScriptAssemblies/UniTask.dll</HintPath>
+     </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>/Users/qd/Projects/Portfolio.Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
      </Reference>
@@ -801,6 +811,10 @@
     <ProjectReference Include="Portfolio.Protocol.csproj">
       <Project>{21068415-9cae-c8e6-2ad6-f19c0465e829}</Project>
       <Name>Portfolio.Protocol</Name>
+    </ProjectReference>
+    <ProjectReference Include="Portfolio.Entities.csproj">
+      <Project>{d9745102-cdbc-501b-f590-77e0f94c3213}</Project>
+      <Name>Portfolio.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

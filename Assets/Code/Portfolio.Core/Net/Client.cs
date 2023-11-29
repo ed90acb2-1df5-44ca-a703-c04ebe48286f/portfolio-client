@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using LiteNetLib;
 using LiteNetLib.Utils;
@@ -11,11 +13,12 @@ namespace Portfolio.Core.Net
 {
     public class Client : INetEventListener, IClient
     {
+        private readonly Dictionary<ulong, Action<int, NetDataReader>> _handlers = new();
+        private readonly Dictionary<Type, object> _recentMessages = new();
+        private readonly BufferWriter _buffer = new();
+
         private readonly Settings _settings;
         private readonly ILogger _logger;
-
-        private readonly Dictionary<Opcode, Action<int, NetDataReader>> _handlers = new();
-        private readonly BufferWriter _buffer = new();
         private readonly NetManager _manager;
 
         private NetPeer? _peer;
@@ -45,17 +48,39 @@ namespace Portfolio.Core.Net
             _manager.Stop();
         }
 
+        public async UniTask<TMessage> WaitFor<TMessage>() where TMessage : class
+        {
+            var messageType = typeof(TMessage);
+            TMessage? message = null;
+
+            await UniTask.WaitUntil(() =>
+            {
+                if (!_recentMessages.ContainsKey(messageType))
+                {
+                    return false;
+                }
+
+                message = (TMessage) _recentMessages[messageType];
+                _recentMessages.Remove(messageType);
+                return true;
+            });
+
+            return message!;
+        }
+
         public void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, IMessage, new()
         {
-            var packet = new TMessage();
+            var message = new TMessage();
 
-            _handlers[Opcodes.Get<TMessage>()] = (peer, reader) =>
+            _handlers[Opcode.Get<TMessage>()] = (peer, reader) =>
             {
-                _logger.Debug($"Processing Packet: {typeof(TMessage).Name}");
+                //_logger.Debug($"Processing Packet: {typeof(TMessage).Name}");
 
-                packet.MergeFrom(reader.GetRemainingBytes());
+                message.MergeFrom(reader.GetRemainingBytes());
 
-                handler.Invoke(packet);
+                handler.Invoke(message);
+
+                _recentMessages[typeof(TMessage)] = message;
             };
         }
 
@@ -68,7 +93,7 @@ namespace Portfolio.Core.Net
             }
 
             _buffer.Reset();
-            _buffer.Write((uint) Opcodes.Get<TMessage>());
+            _buffer.Write(Opcode.Get<TMessage>());
 
             message.WriteTo(_buffer);
 
@@ -94,9 +119,7 @@ namespace Portfolio.Core.Net
 
         public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
         {
-            _logger.Debug("OnNetworkReceive");
-
-            var opcode = (Opcode) reader.GetUInt();
+            var opcode = reader.GetULong();
 
             if (_handlers.TryGetValue(opcode, out var handler))
             {
@@ -104,7 +127,7 @@ namespace Portfolio.Core.Net
             }
             else
             {
-                _logger.Debug($"OnNetworkReceive: no packet handler. Opcode: {opcode.ToString()}");
+                _logger.Debug($"OnNetworkReceive: no packet handler. {Opcode.Type(opcode)?.Name}");
             }
         }
 
@@ -115,7 +138,7 @@ namespace Portfolio.Core.Net
 
         public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
         {
-            _logger.Debug("OnNetworkLatencyUpdate");
+            //_logger.Debug("OnNetworkLatencyUpdate");
         }
 
         public void OnConnectionRequest(ConnectionRequest request)
