@@ -3,6 +3,7 @@
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.portfolio.entities": "file:../../Portfolio/src/Portfolio.Entities/src",
     "com.portfolio.protocol": "file:../../Portfolio/src/Portfolio.Protocol/src",
+    "com.portfolio.common": "file:../../Portfolio/src/Portfolio.Common/src",
     "com.unity.addressables": "1.21.19",
     "com.unity.ide.rider": "3.0.26",
     "com.unity.render-pipelines.universal": "16.0.4",

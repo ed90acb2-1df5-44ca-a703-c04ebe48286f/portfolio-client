@@ -7,6 +7,12 @@
       "dependencies": {},
       "hash": "5cc97c7f0085624b6ef57853d70b404440060cef"
     },
+    "com.portfolio.common": {
+      "version": "file:../../Portfolio/src/Portfolio.Common/src",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.portfolio.entities": {
       "version": "file:../../Portfolio/src/Portfolio.Entities/src",
       "depth": 0,

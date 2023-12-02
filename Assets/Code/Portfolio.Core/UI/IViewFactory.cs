@@ -2,6 +2,6 @@ namespace Portfolio.Core.UI
 {
     public interface IViewFactory
     {
-        TView Create<TView>();
+        IView Create<TController>(TController controller);
     }
 }

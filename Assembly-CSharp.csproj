@@ -79,7 +79,6 @@
      <Folder Include="Assets/TextMesh Pro/Fonts" />
      <None Include="Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
      <Folder Include="Assets/Textures" />
-     <Folder Include="Assets/SceneDependencyCache" />
      <Folder Include="Assets/Shaders" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />

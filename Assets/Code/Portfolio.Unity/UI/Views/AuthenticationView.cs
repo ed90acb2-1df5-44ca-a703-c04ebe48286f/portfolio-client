@@ -1,24 +1,22 @@
 using Cysharp.Threading.Tasks;
-using Portfolio.Core.Net;
-using Portfolio.Core.UI.Views;
-using Portfolio.Protocol.Authentication;
+using Portfolio.Core.UI.Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Portfolio.Unity.UI.Views
 {
-    public class AuthenticationView : View<IClient>, IAuthenticationView
+    public class AuthenticationView : View<AuthenticationController>
     {
         [SerializeField] private TMP_InputField _accountNameInputField = null!;
         [SerializeField] private TMP_InputField _accountPasswordInputField = null!;
         [SerializeField] private Button _loginButton = null!;
 
-        private IClient _client = null!;
+        private AuthenticationController _controller = null!;
 
-        protected override void OnConstruct(IClient client)
+        protected override void OnConstruct(AuthenticationController controller)
         {
-            _client = client;
+            _controller = controller;
             _loginButton.onClick.AddListener(OnLoginButtonClicked);
         }
 
@@ -35,20 +33,14 @@ namespace Portfolio.Unity.UI.Views
                 return;
             }
 
-            HandleLoginAsync().Forget();
+            LoginAsync().Forget();
         }
 
-        private async UniTask HandleLoginAsync()
+        private async UniTask LoginAsync()
         {
             _loginButton.interactable = false;
 
-            _client.Send(new LoginRequest
-            {
-                Login = _accountNameInputField.text,
-                Password = _accountPasswordInputField.text,
-            });
-
-            var response = await _client.WaitFor<LoginResponse>();
+            var response = await _controller.AuthenticateAsync(_accountNameInputField.text, _accountPasswordInputField.text);
 
             Debug.Log(response?.ErrorCode);
 

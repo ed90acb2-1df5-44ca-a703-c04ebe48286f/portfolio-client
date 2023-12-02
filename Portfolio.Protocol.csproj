@@ -47,11 +47,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Values.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Opcode.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Messages.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/BufferWriter.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Requests.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Errors.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Commands.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Messages.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Generated/Authentication.cs" />
      <Folder Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/Proto" />
      <None Include="/Users/qd/Projects/Portfolio/src/Portfolio.Protocol/src/package.json" />

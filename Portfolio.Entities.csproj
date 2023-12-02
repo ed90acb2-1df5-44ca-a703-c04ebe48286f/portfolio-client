@@ -32,6 +32,7 @@
     <NoWarn>0169,0649</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -46,15 +47,16 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/2023.2.0b15/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections/Bitmask.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Entity.cs" />
-     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections/CollectionExtensions.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Query.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections/Bitmask.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections/Bitmask255.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/QueryBuilder.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Entity.cs" />
      <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/World.cs" />
+     <Compile Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections/CollectionExtensions.cs" />
      <None Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Portfolio.Entities.asmdef" />
      <Folder Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/Collections" />
+     <None Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/csc.rsp" />
      <Folder Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src" />
      <None Include="/Users/qd/Projects/Portfolio/src/Portfolio.Entities/src/package.json" />
      <Reference Include="Unity.Collections.LowLevel.ILSupport">

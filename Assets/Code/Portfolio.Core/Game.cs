@@ -1,8 +1,14 @@
 using System.Collections.Generic;
 using Portfolio.Core.Actors;
+using Portfolio.Core.DependencyInjection;
+using Portfolio.Core.Input;
+using Portfolio.Core.Logging;
+using Portfolio.Core.MessageHandlers;
 using Portfolio.Core.Net;
 using Portfolio.Core.States;
 using Portfolio.Core.UI;
+using Portfolio.Protocol.Authentication;
+using Portfolio.Protocol.Messages;
 
 namespace Portfolio.Core
 {
@@ -20,7 +26,7 @@ namespace Portfolio.Core
 
         private IState? _state;
 
-        public Game(ILogger logger, IClient client, IInput input, IActorFactory actorFactory, IViewFactory viewFactory)
+        public Game(IContainer container, ILogger logger, IClient client, IInput input, IActorFactory actorFactory, IViewFactory viewFactory)
         {
             _logger = logger;
             _client = client;
@@ -28,7 +34,20 @@ namespace Portfolio.Core
             _actorFactory = actorFactory;
             _viewFactory = viewFactory;
 
+            RegisterHandler<PlayerSpawnedMessage, PlayerSpawnedMessageHandler>();
+            RegisterHandler<WorldStateMessage, WorldStateMessageHandler>();
+
             Instance = this;
+
+            return;
+
+            void RegisterHandler<TMessage, TMessageHandler>()
+                where TMessageHandler : class, IMessageHandler<TMessage>
+                where TMessage : class, new()
+            {
+                var handler = container.Instantiate<TMessageHandler>();
+                client.RegisterHandler<TMessage>(handler.Handle);
+            }
         }
 
         public void ToMainMenuState()

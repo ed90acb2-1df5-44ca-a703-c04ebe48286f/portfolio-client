@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Google.Protobuf;
 using LiteNetLib;
 using LiteNetLib.Utils;
-using Portfolio.Protocol;
+using Portfolio.Common;
+using Portfolio.Core;
+using Portfolio.Core.Logging;
+using Portfolio.Core.Net;
 
-namespace Portfolio.Core.Net
+namespace Portfolio.Unity.Net
 {
     public class Client : INetEventListener, IClient
     {
@@ -48,7 +51,7 @@ namespace Portfolio.Core.Net
             _manager.Stop();
         }
 
-        public async UniTask<TMessage> WaitFor<TMessage>() where TMessage : class
+        public async Task<TMessage> WaitFor<TMessage>() where TMessage : class
         {
             var messageType = typeof(TMessage);
             TMessage? message = null;
@@ -68,15 +71,15 @@ namespace Portfolio.Core.Net
             return message!;
         }
 
-        public void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, IMessage, new()
+        public void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, new()
         {
             var message = new TMessage();
 
-            _handlers[Opcode.Get<TMessage>()] = (peer, reader) =>
+            _handlers[TypeHash.Hash<TMessage>()] = (peer, reader) =>
             {
                 //_logger.Debug($"Processing Packet: {typeof(TMessage).Name}");
 
-                message.MergeFrom(reader.GetRemainingBytes());
+                ((IMessage) message).MergeFrom(reader.GetRemainingBytes());
 
                 handler.Invoke(message);
 
@@ -84,18 +87,18 @@ namespace Portfolio.Core.Net
             };
         }
 
-        public void Send<TMessage>(TMessage message) where TMessage : class, IMessage
+        public void Command<TCommand>(TCommand command) where TCommand : class
         {
             if (_peer == null)
             {
-                _logger.Debug("Can't send message. Not connected!");
+                _logger.Debug("Can't send command. Not connected!");
                 return;
             }
 
             _buffer.Reset();
-            _buffer.Write(Opcode.Get<TMessage>());
+            _buffer.Write(TypeHash.Hash<TCommand>());
 
-            message.WriteTo(_buffer);
+            ((IMessage) command).WriteTo(_buffer);
 
             _peer.Send(_buffer.AsSpan(), DeliveryMethod.ReliableOrdered);
         }
@@ -127,7 +130,7 @@ namespace Portfolio.Core.Net
             }
             else
             {
-                _logger.Debug($"OnNetworkReceive: no packet handler. {Opcode.Type(opcode)?.Name}");
+                _logger.Debug($"OnNetworkReceive: no packet handler. {TypeHash.Type(opcode)?.Name}");
             }
         }
 

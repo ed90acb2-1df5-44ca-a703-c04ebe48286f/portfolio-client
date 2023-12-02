@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Portfolio.Core;
+using Portfolio.Core.Input;
 using UnityEngine;
 
-namespace Portfolio.Unity
+namespace Portfolio.Unity.Input
 {
     public class UnityLegacyInput : IInput
     {
@@ -16,17 +16,17 @@ namespace Portfolio.Unity
 
         public bool IsKeyDown(InputKey key)
         {
-            return Input.GetKey(_keyBindings[key]);
+            return UnityEngine.Input.GetKey(_keyBindings[key]);
         }
 
         public bool IsKeyPressed(InputKey key)
         {
-            return Input.GetKeyDown(_keyBindings[key]);
+            return UnityEngine.Input.GetKeyDown(_keyBindings[key]);
         }
 
         public bool IsKeyReleased(InputKey key)
         {
-            return Input.GetKeyUp(_keyBindings[key]);
+            return UnityEngine.Input.GetKeyUp(_keyBindings[key]);
         }
     }
 }

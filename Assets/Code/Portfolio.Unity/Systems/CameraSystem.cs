@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Portfolio.Unity
+namespace Portfolio.Unity.Systems
 {
     public class CameraSystem : MonoBehaviour
     {

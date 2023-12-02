@@ -1,6 +1,6 @@
-using Portfolio.Core;
+using Portfolio.Core.Logging;
 
-namespace Portfolio.Unity
+namespace Portfolio.Unity.Logging
 {
     public class Logger : ILogger
     {

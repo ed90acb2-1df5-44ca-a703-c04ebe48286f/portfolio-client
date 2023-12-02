@@ -1,6 +1,5 @@
 using System;
-using Cysharp.Threading.Tasks;
-using Google.Protobuf;
+using System.Threading.Tasks;
 
 namespace Portfolio.Core.Net
 {
@@ -12,10 +11,10 @@ namespace Portfolio.Core.Net
 
         void Disconnect();
 
-        UniTask<TMessage> WaitFor<TMessage>() where TMessage : class;
+        Task<TMessage> WaitFor<TMessage>() where TMessage : class;
 
-        void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, IMessage, new();
+        void RegisterHandler<TMessage>(Action<TMessage> handler) where TMessage : class, new();
 
-        void Send<TMessage>(TMessage message) where TMessage : class, IMessage;
+        void Command<TCommand>(TCommand command) where TCommand : class;
     }
 }

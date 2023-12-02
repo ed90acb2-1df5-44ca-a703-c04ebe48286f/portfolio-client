@@ -1,5 +1,6 @@
 using System.Numerics;
 using Portfolio.Core.Components;
+using Portfolio.Core.Input;
 using Portfolio.Entities;
 
 namespace Portfolio.Core.Systems

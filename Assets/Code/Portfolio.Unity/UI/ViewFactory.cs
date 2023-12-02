@@ -1,4 +1,5 @@
 using Portfolio.Core.UI;
+using Portfolio.Unity.UI.Views;
 using UnityEngine;
 
 namespace Portfolio.Unity.UI
@@ -12,10 +13,12 @@ namespace Portfolio.Unity.UI
             _container = container;
         }
 
-        public TView Create<TView>()
+        public IView Create<TController>(TController controller)
         {
             var prefab = Resources.Load<GameObject>("Prefabs/UI/Views/AuthenticationView");
-            return Object.Instantiate(prefab, _container).GetComponent<TView>();
+            var view = Object.Instantiate(prefab, _container).GetComponent<View<TController>>();
+            view.Initialize(controller);
+            return view;
         }
     }
 }

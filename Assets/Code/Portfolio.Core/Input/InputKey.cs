@@ -1,4 +1,4 @@
-namespace Portfolio.Core
+namespace Portfolio.Core.Input
 {
     public enum InputKey
     {

@@ -1,4 +1,4 @@
-namespace Portfolio.Core
+namespace Portfolio.Core.Logging
 {
     public interface ILogger
     {

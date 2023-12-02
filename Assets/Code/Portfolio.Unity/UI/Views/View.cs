@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using Portfolio.Core.UI.Views;
+using Portfolio.Core.UI;
 using UnityEngine;
 
 namespace Portfolio.Unity.UI.Views
 {
-    public abstract class View<TContext> : MonoBehaviour, IView<TContext>
+    public abstract class View<TController> : MonoBehaviour, IView
     {
         protected readonly List<IDisposable> Lifetime = new();
 
-        public void Construct(TContext context)
+        public void Initialize(TController controller)
         {
             // ...
 
-            OnConstruct(context);
+            OnConstruct(controller);
         }
 
-        public void Deconstruct()
+        public void Terminate()
         {
             foreach (var disposable in Lifetime)
             {
@@ -38,7 +38,7 @@ namespace Portfolio.Unity.UI.Views
             gameObject.SetActive(false);
         }
 
-        protected virtual void OnConstruct(TContext context)
+        protected virtual void OnConstruct(TController context)
         {
         }
 

@@ -1,11 +1,18 @@
 using Portfolio.Core;
+using Portfolio.Core.Actors;
 using Portfolio.Core.Components;
+using Portfolio.Core.DependencyInjection;
+using Portfolio.Core.Input;
 using Portfolio.Core.Net;
-using Portfolio.Protocol.Authentication;
-using Portfolio.Protocol.Messages;
+using Portfolio.Core.UI;
 using Portfolio.Unity.Actors;
+using Portfolio.Unity.Input;
+using Portfolio.Unity.Net;
+using Portfolio.Unity.Systems;
 using Portfolio.Unity.UI;
 using UnityEngine;
+using ILogger = Portfolio.Core.Logging.ILogger;
+using Logger = Portfolio.Unity.Logging.Logger;
 
 namespace Portfolio.Unity
 {
@@ -24,28 +31,15 @@ namespace Portfolio.Unity
 
             client.Connect();
 
-            client.RegisterHandler<LoginResponse>(message =>
-            {
-                Debug.Log(message.GetType());
-            });
+            var container = new Container();
+            container.Singleton<IContainer>(container);
+            container.Singleton<IInput>(new UnityLegacyInput());
+            container.Singleton<IViewFactory>(new ViewFactory(_canvas.transform));
+            container.Singleton<IActorFactory>(new UnityActorFactory());
+            container.Singleton<IClient>(client);
+            container.Singleton<ILogger>(logger);
 
-            client.RegisterHandler<RegistrationResponse>(message =>
-            {
-                Debug.Log(message.GetType());
-            });
-
-            client.RegisterHandler<PlayerSpawnedMessage>(message =>
-            {
-                Debug.Log(message.GetType());
-            });
-
-            client.RegisterHandler<WorldStateMessage>(message =>
-            {
-            });
-
-            client.Connect();
-
-            _game = new Game(logger, client, new UnityLegacyInput(), new UnityActorFactory(), new ViewFactory(_canvas.transform));
+            _game = container.Instantiate<Game>();
             _game.ToMainMenuState();
         }
 
@@ -57,7 +51,7 @@ namespace Portfolio.Unity
 
         private void Update()
         {
-            _game.Tick(Time.deltaTime);
+            _game?.Tick(Time.deltaTime);
         }
     }
 }
